@@ -37,6 +37,10 @@ class ModelPotential:
         self.model_params = self.qdd.get_model_potential(self.species, self.l)
         self.ritz_params = self.qdd.get_rydberg_ritz(self.species, self.l, self.j)
 
+        self.ground_state = self.qdd.get_ground_state(self.species)
+        if (self.n, self.l, self.j) < (self.ground_state.n, self.ground_state.l, self.ground_state.j):
+            raise ValueError("There is no state with smaller quantum numbers than the ground state.")
+
     @cached_property
     def energy(self) -> float:
         r"""Return the energy of a Rydberg state with principal quantum number n in atomic units.

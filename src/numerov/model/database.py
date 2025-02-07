@@ -97,6 +97,30 @@ class RydbergRitzParameters:
         return self.Ry / self.Ry_inf
 
 
+@dataclass
+class GroundState:
+    """Ground state parameters for an atomic species.
+
+    Attributes:
+        element: Atomic element symbol
+        configuration: Electron configuration in noble gas notation
+        n: Principal quantum number
+        l: Orbital angular momentum quantum number
+        s: Spin quantum number
+        j: Total angular momentum quantum number
+        m: Magnetic quantum number
+
+    """
+
+    element: str
+    configuration: str
+    n: int
+    l: int
+    s: float
+    j: float
+    m: float
+
+
 class QuantumDefectsDatabase:
     """Interface to quantum defects SQL database."""
 
@@ -189,6 +213,27 @@ class QuantumDefectsDatabase:
         return RydbergRitzParameters(
             element=row[0], L=row[1], J=row[2], d0=row[3], d2=row[4], d4=row[5], d6=row[6], d8=row[7], Ry=row[8]
         )
+
+    def get_ground_state(self, element: str) -> GroundState:
+        """Get ground state parameters.
+
+        Args:
+            element: Atomic element symbol
+
+        Returns:
+            GroundState containing the ground state quantum numbers.
+
+        Raises:
+            ValueError: If no parameters found for element
+
+        """
+        cursor = self.conn.execute("SELECT * FROM ground_state WHERE element=?", (element,))
+        row = cursor.fetchone()
+
+        if row is None:
+            raise ValueError(f"No ground state parameters found for {element}")
+
+        return GroundState(element=row[0], configuration=row[1], n=row[2], l=row[3], s=row[4], j=row[5], m=row[6])
 
     def __del__(self) -> None:
         """Close database connection on object deletion."""
