@@ -61,7 +61,7 @@ dev = [
 ]
 
 [dependency-groups]
-dev = ["numerov[doc,test,benchmark,dev]"]
+dev = ["rydberg-numerov[doc,test,benchmark,dev]"]
 
 [tool.setuptools.dynamic]
 version = {attr = "numerov.__version__"}
