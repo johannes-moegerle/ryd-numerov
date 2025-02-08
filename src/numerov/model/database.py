@@ -53,6 +53,21 @@ class ModelPotentialParameters:
         """Core radius parameter in dimensionless units."""
         return self.rc
 
+    @classmethod
+    def from_trivial(cls, element: str, L: int) -> "ModelPotentialParameters":
+        """Create trivial model potential parameters for a given element and angular momentum.
+
+        Args:
+            element: Atomic element symbol.
+            L: Angular momentum quantum number.
+            Z: Nuclear charge.
+
+        Returns:
+            ModelPotentialParameters with trivial parameters.
+
+        """
+        return cls(element=element, L=L, ac=0.0, Z=1, a1=0.0, a2=0.0, a3=0.0, a4=0.0, rc=0.0)
+
 
 @dataclass
 class RydbergRitzParameters:

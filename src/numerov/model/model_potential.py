@@ -5,7 +5,7 @@ from typing import Literal, Optional, Union
 
 import numpy as np
 
-from numerov.model.database import QuantumDefectsDatabase
+from numerov.model.database import ModelPotentialParameters, QuantumDefectsDatabase
 from numerov.units import ureg
 
 logger = logging.getLogger(__name__)
@@ -34,7 +34,12 @@ class ModelPotential:
         """
         self.qdd = QuantumDefectsDatabase(self.qdd_path)
 
-        self.model_params = self.qdd.get_model_potential(self.species, self.l)
+        if self.add_model_potentials:
+            self.model_params = self.qdd.get_model_potential(self.species, self.l)
+        else:
+            logger.info("Disabling model potentials.")
+            self.model_params = ModelPotentialParameters.from_trivial(self.species, self.l)
+
         self.ritz_params = self.qdd.get_rydberg_ritz(self.species, self.l, self.j)
 
         self.ground_state = self.qdd.get_ground_state(self.species)
@@ -104,12 +109,15 @@ class ModelPotential:
             V_c: The core potential V_c(x) in atomic units.
 
         """
-        if not self.add_model_potentials:
-            return -1 / x
-        params = self.model_params
-        Z_nl = 1 + (params.Z - 1) * np.exp(-params.a1 * x) - x * (params.a3 + params.a4 * x) * np.exp(-params.a2 * x)
-        V_c = -Z_nl / x
-        return V_c
+        Z, a1, a2, a3, a4 = (
+            self.model_params.Z,
+            self.model_params.a1,
+            self.model_params.a2,
+            self.model_params.a3,
+            self.model_params.a4,
+        )
+        Z_nl = 1 + (Z - 1) * np.exp(-a1 * x) - x * (a3 + a4 * x) * np.exp(-a2 * x)
+        return -Z_nl / x
 
     def calc_V_p(self, x: np.ndarray) -> np.ndarray:
         r"""Calculate the core polarization potential V_p(x) in atomic units.
