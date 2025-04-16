@@ -1,0 +1,6 @@
+InvalidStateError
+=================
+
+.. currentmodule:: ryd_numerov.model
+
+.. autoexception:: InvalidStateError

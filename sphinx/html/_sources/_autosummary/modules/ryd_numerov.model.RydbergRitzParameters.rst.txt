@@ -1,0 +1,38 @@
+RydbergRitzParameters
+=====================
+
+.. currentmodule:: ryd_numerov.model
+
+
+.. rubric:: Class Methods
+
+.. autosummary::
+   
+      ~RydbergRitzParameters.__init__
+
+
+
+.. rubric:: Class Attributes and Properties
+
+.. autosummary::
+
+   ~RydbergRitzParameters.Ry_inf
+   ~RydbergRitzParameters.mu
+   ~RydbergRitzParameters.species
+   ~RydbergRitzParameters.l
+   ~RydbergRitzParameters.j
+   ~RydbergRitzParameters.d0
+   ~RydbergRitzParameters.d2
+   ~RydbergRitzParameters.d4
+   ~RydbergRitzParameters.d6
+   ~RydbergRitzParameters.d8
+   ~RydbergRitzParameters.Ry
+
+
+
+.. autoclass:: ryd_numerov.model.RydbergRitzParameters
+   :members:
+   :member-order: bysource
+   :inherited-members:
+   :undoc-members:
+   :class-doc-from: init

@@ -1,0 +1,37 @@
+ModelPotentialParameters
+========================
+
+.. currentmodule:: ryd_numerov.model
+
+
+.. rubric:: Class Methods
+
+.. autosummary::
+   
+      ~ModelPotentialParameters.__init__
+
+
+
+.. rubric:: Class Attributes and Properties
+
+.. autosummary::
+
+   ~ModelPotentialParameters.xc
+   ~ModelPotentialParameters.species
+   ~ModelPotentialParameters.l
+   ~ModelPotentialParameters.ac
+   ~ModelPotentialParameters.Z
+   ~ModelPotentialParameters.a1
+   ~ModelPotentialParameters.a2
+   ~ModelPotentialParameters.a3
+   ~ModelPotentialParameters.a4
+   ~ModelPotentialParameters.rc
+
+
+
+.. autoclass:: ryd_numerov.model.ModelPotentialParameters
+   :members:
+   :member-order: bysource
+   :inherited-members:
+   :undoc-members:
+   :class-doc-from: init
